@@ -2,7 +2,7 @@
 
 
 namespace Core;
-
+use \PDO;
 
 class Manager
 {
