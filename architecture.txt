@@ -1,0 +1,58 @@
+Users
+->id
+->login
+->password
+
+Scores
+->id
+->id_game
+->id_user
+
+Level
+->id
+->type
+->points
+->shot
+
+------------------------
+Game
+*shot_available
+->new(type)
+->deal()
+->play()
+->arePairs()->true/false
+->isWinner()
+->reset()
+
+WallOfFame
+->get10BestPlayers()
+
+Level extends Manager
+*id
+*type
+*points
+
+Scores extends Manager
+*id
+*id_games
+*id_users
+*shot
+
+Users extends Manager
+*id
+*login
+*password
+->signUp
+->login
+->getTotalPoints($id_utilisateur)
+
+Manager
+$db
+->__construc($db)
+->existInDb($key,$value) -> return (bool)
+->add([keys, values, type ?])
+->del($id)
+->get($id)
+
+PDO
+->connectDB
