@@ -1,0 +1,21 @@
+Table users as U {
+  id int [pk,increment]
+  login varchar [unique]
+  password varchar
+}
+
+Table scores as S{
+  id int [pk,increment]
+  id_levels int
+  id_users int
+}
+
+Table levels as L{
+  id int [pk,increment]
+  type int
+  points int
+  shot int
+}
+
+Ref: S.id_users > users.id
+Ref: S.id_levels > levels.id
