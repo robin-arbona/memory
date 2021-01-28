@@ -1,6 +1,7 @@
 .card{
     display: inline;
     margin: 0.4rem;
+    font-size: 2rem;
 }
 
 .card:hover{

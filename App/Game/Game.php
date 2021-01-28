@@ -9,7 +9,10 @@ class Game
     public $shot;
     public $gameState = 'init';
     public $cardGame = [];
-    public $playHistory = [];
+    public $returnedCard = '';
+    public $revealedCards = [];
+    public $looseLastShot = false;
+    public $history = [];
 
     public function __construct()
     {
@@ -20,7 +23,6 @@ class Game
      */
     public function handleUserInput($userInput)
     {
-        var_dump($userInput);
         if ($userInput == null) {
             return;
         }
@@ -74,20 +76,73 @@ class Game
      */
     public function play($card)
     {
-        $this->playHistory[] = $card;
+        if ($this->looseLastShot) {
+            $card2hide = $this->history[count($this->history) - 1];
+            echo "<br> card $card2hide";
+            $this->hideCard($card2hide);
+            $card2hide = $this->history[count($this->history) - 2];
+            echo "<br> card $card2hide";
+
+            $this->hideCard($card2hide);
+            $this->looseLastShot = FALSE;
+        }
+
+        $this->history[] = $card;
+        $this->revealCard($card);
+
+
+        if ($this->returnedCard == '') {
+            $this->returnedCard = $card;
+        } else {
+            if ($this->arePairs($this->returnedCard, $card)) {
+                $this->isWinner();
+            } else {
+                $this->isLooser();
+                $this->looseLastShot = TRUE;
+            }
+            $this->returnedCard = '';
+        }
     }
 
     /**
+     * Register card has card to be revealed in game
+     */
+    public function revealCard($cards)
+    {
+        $this->revealedCards[] = $cards;
+    }
+
+    /**
+     * Delete from array card in order to be hide
+     */
+    public function hideCard($card)
+    {
+        $key = array_search($card, $this->revealedCards);
+        array_splice($this->revealedCards, $key, 1);
+    }
+    /**
      * Check if selected cards are pairs
      */
-    public function arePairs()
+    public function arePairs($lastcard, $currentcard)
+    {
+        if ($lastcard[-1] == $currentcard[-1]) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Check if user has win is game
+     */
+    public function isWinner()
     {
     }
 
     /**
-     * Check if used has win is game
+     * Check if user has loose the game
      */
-    public function isWinner()
+    public function isLooser()
     {
     }
 
@@ -98,7 +153,10 @@ class Game
     {
         $this->gameState = 'init';
         $this->cardGame = [];
-        $this->playHistory = [];
+        $this->returnedCard = '';
+        $this->revealedCards = [];
+        $this->looseLastShot = false;
+        $this->history = [];
     }
 
     /**
@@ -113,10 +171,16 @@ class Game
 
         for ($i = 0; $i < count($this->cardGame); $i++) {
             $card = $this->cardGame[$i];
-            $position = $i;
-            $html .= "<button class='card' type='submit' name ='card' value='$position-$card' >
-                       $card
-                    </button>";
+            $id_card = $i . '-' . $card;
+            if (in_array($id_card, $this->revealedCards)) {
+                $html .= "<button disabled class='card'  name ='card' value='$id_card' >
+                $card
+                </button>";
+            } else {
+                $html .= "<button class='card' type='submit' name ='card' value='$id_card' >
+                ?
+                </button>";
+            }
         }
 
         $html .= '</form>';
