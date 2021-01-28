@@ -82,7 +82,6 @@ class Game
             $this->hideCard($card2hide);
             $card2hide = $this->history[count($this->history) - 2];
             echo "<br> card $card2hide";
-
             $this->hideCard($card2hide);
             $this->looseLastShot = FALSE;
         }
