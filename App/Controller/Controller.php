@@ -12,7 +12,6 @@ class Controller extends Manager
 
     public function signup()
     {
-
     }
 
     public function getView($view)
@@ -25,22 +24,20 @@ class Controller extends Manager
 
     public function login()
     {
-
     }
 
     public function menu()
     {
-
     }
 
     public function game()
     {
 
+        $content = $this->getView(__FUNCTION__);
+        return $content;
     }
 
     public function wall_of_fame()
     {
-
     }
-
 }
