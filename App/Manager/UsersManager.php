@@ -31,7 +31,8 @@ class UsersManager extends Manager
         $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE login = :login");
         $query->execute([':login' => htmlspecialchars($login)]);
         $user_in_db = $query->fetch();
-        if(password_verify($user_in_db['password'],$password)){
+        var_dump($user_in_db);
+        if(password_verify($password,$user_in_db['password'])){
             return true;
         }else{
             return false;
