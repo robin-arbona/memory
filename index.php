@@ -14,7 +14,7 @@ if (isset($_GET['view'])) {
             $controller->login($_POST);
         }
     } elseif ($view == 'game') {
-        $content = $controller->game();
+        $content = $controller->game($_POST);
     } elseif ($view == 'signup') {
         $controller->signup($_POST);
         $content = $controller->getView($view);

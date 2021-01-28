@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-
+use App\Game\Game;
 use App\Manager\UsersManager;
 use Core\Manager;
 
@@ -14,9 +14,10 @@ class Controller extends Manager
     {
     }
 
-    public function getView($view)
+    public function getView($view, $data = [])
     {
         ob_start();
+        extract($data);
         require "view/{$view}.php";
         $content = ob_get_clean();
         return $content;
@@ -30,10 +31,14 @@ class Controller extends Manager
     {
     }
 
-    public function game()
+    public function game($userInput)
     {
-
-        $content = $this->getView(__FUNCTION__);
+        if (!isset($_SESSION['game'])) {
+            $game = new Game();
+        } else {
+            $game = $_SESSION['game'];
+        }
+        $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }
 
