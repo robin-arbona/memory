@@ -3,6 +3,7 @@ require 'Core/Autoloader.php';
 
 spl_autoload_register(['\Core\Autoloader', 'autoload']);
 $controller = new \App\Controller\Controller();
+$user = new \App\Manager\UsersManager();
 session_start();
 
 if (isset($_GET['view'])) {
