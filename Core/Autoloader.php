@@ -8,7 +8,7 @@ class Autoloader
 {
     static function autoload($myclass)
     {
-        $filepath = $myclass .'.php';
+        $filepath = str_replace('\\', '/', $myclass)  . '.php';
         require $filepath;
     }
 }
