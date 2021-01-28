@@ -8,7 +8,7 @@ class Game
 {
     public $shot;
     public $gameState = 'init';
-    public $cards = [];
+    public $cardGame = [];
 
     public function __construct()
     {
@@ -47,7 +47,16 @@ class Game
      */
     public function deal($pairs)
     {
+        $cards = 'ABCDEFGHIJKL';
+        $cardGame = [];
+        for ($j = 0; $j <= 1; $j++) {
+            for ($i = 0; $i <= $pairs; $i++) {
+                $cardGame[] = $cards[($i)];
+            }
+        }
+
         echo "i deal $pairs";
+        var_dump($cardGame);
     }
 
     /**
@@ -77,7 +86,7 @@ class Game
     public function reset()
     {
         $this->gameState = 'init';
-        $this->cards = [];
+        $this->cardGame = [];
     }
 
     /**
