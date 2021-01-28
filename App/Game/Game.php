@@ -9,6 +9,7 @@ class Game
     public $shot;
     public $gameState = 'init';
     public $cardGame = [];
+    public $playHistory = [];
 
     public function __construct()
     {
@@ -30,6 +31,9 @@ class Game
         if (isset($userInput['reset'])) {
             $this->reset();
         }
+        if (isset($userInput['card'])) {
+            $this->play($userInput['card']);
+        }
     }
 
     /**
@@ -50,20 +54,27 @@ class Game
         $cards = 'ABCDEFGHIJKL';
         $cardGame = [];
         for ($j = 0; $j <= 1; $j++) {
-            for ($i = 0; $i <= $pairs; $i++) {
+            for ($i = 0; $i <= $pairs - 1; $i++) {
                 $cardGame[] = $cards[($i)];
             }
         }
 
-        echo "i deal $pairs";
-        var_dump($cardGame);
+        //Mixed cardsGame
+        for ($i = 0; $i <= 2 * $pairs; $i++) {
+            $randNumber = rand(0, count($cardGame) - 1);
+            $tmp = $cardGame[$randNumber];
+            array_splice($cardGame, $randNumber, 1);
+            $cardGame[] = $tmp;
+        }
+        $this->cardGame = $cardGame;
     }
 
     /**
      * Game logical, runned each time users make entry
      */
-    public function play()
+    public function play($card)
     {
+        $this->playHistory[] = $card;
     }
 
     /**
@@ -87,6 +98,7 @@ class Game
     {
         $this->gameState = 'init';
         $this->cardGame = [];
+        $this->playHistory = [];
     }
 
     /**
@@ -94,6 +106,21 @@ class Game
      */
     public function displayBoard()
     {
+        if ($this->gameState != 'running') {
+            return;
+        }
+        $html = '<form class="border" method="POST" action="index.php?view=game">';
+
+        for ($i = 0; $i < count($this->cardGame); $i++) {
+            $card = $this->cardGame[$i];
+            $position = $i;
+            $html .= "<button class='card' type='submit' name ='card' value='$position-$card' >
+                       $card
+                    </button>";
+        }
+
+        $html .= '</form>';
+        return $html;
     }
 
     /**

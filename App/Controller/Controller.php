@@ -51,6 +51,7 @@ class Controller extends Manager
             $game = $_SESSION['game'];
         }
         $game->handleUserInput($userInput);
+        $_SESSION['game'] = $game;
         $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }

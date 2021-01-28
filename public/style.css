@@ -1,0 +1,9 @@
+.card{
+    display: inline;
+    margin: 0.4rem;
+}
+
+.card:hover{
+    transform: translateY(-0.4rem);
+    transition-duration: 500ms;
+}
