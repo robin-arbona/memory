@@ -38,6 +38,7 @@ class Controller extends Manager
         } else {
             $game = $_SESSION['game'];
         }
+        $game->handleUserInput($userInput);
         $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }

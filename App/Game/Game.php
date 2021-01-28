@@ -7,15 +7,21 @@ namespace App\Game;
 class Game
 {
     public $shot;
+    public $gameState = 'init';
 
     public function __construct()
     {
     }
 
+    public function handleUserInput($userInput)
+    {
+        var_dump($userInput);
+    }
+
     /**
      * Initialize a new game
      */
-    public function new()
+    private function new()
     {
     }
 
@@ -66,5 +72,14 @@ class Game
      */
     public function displayMenu()
     {
+        $html = '<form method="POST" action="index.php?view=game">';
+        if ($this->gameState == 'init') {
+            $html .= 'New game, choose your level: <br/>';
+            for ($pairs = 3; $pairs <= 12; $pairs++) {
+                $html .= "<input class='btn btn-primary m-1' type='submit' name='new-game' value='{$pairs}xpairs to find'>";
+            }
+        }
+        $html .= '</form>';
+        return $html;
     }
 }
