@@ -1,6 +1,7 @@
 <?php
 ?>
 <h1>Game</h1>
-
-<?= $game->displayBoard() ?>
-<?= $game->displayMenu() ?>
+<div class='container'>
+    <?= $game->displayBoard() ?>
+    <?= $game->displayMenu() ?>
+</div>
