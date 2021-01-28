@@ -78,10 +78,8 @@ class Game
     {
         if ($this->looseLastShot) {
             $card2hide = $this->history[count($this->history) - 1];
-            echo "<br> card $card2hide";
             $this->hideCard($card2hide);
             $card2hide = $this->history[count($this->history) - 2];
-            echo "<br> card $card2hide";
             $this->hideCard($card2hide);
             $this->looseLastShot = FALSE;
         }
@@ -173,7 +171,7 @@ class Game
             $id_card = $i . '-' . $card;
             if (in_array($id_card, $this->revealedCards)) {
                 $html .= "<button disabled class='card'  name ='card' value='$id_card' >
-                $card
+                <p>$card</p>
                 </button>";
             } else {
                 $html .= "<button class='card' type='submit' name ='card' value='$id_card' >

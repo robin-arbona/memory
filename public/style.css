@@ -1,8 +1,14 @@
 .card{
-    display: inline;
+    display: inline-flex;
     margin: 0.4rem;
     font-size: 2rem;
+    width: 3rem;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+
 
 .card:hover{
     transform: translateY(-0.4rem);
