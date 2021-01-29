@@ -200,15 +200,15 @@ class Game
         }
 
         $disabled = $this->gameState == 'end' ? 'disabled' : '';
-        $html .= '<form class="border" method="POST" action="index.php?view=game">';
+        $html .= '<form class="row justify-content-center" method="POST" action="index.php?view=game">';
 
         for ($i = 0; $i < count($this->cardGame); $i++) {
             $card = $this->cardGame[$i];
             $id_card = $i . '-' . $card;
             if (in_array($id_card, $this->revealedCards)) {
-                $html .= "<button disabled class='card'  name ='card' value='$id_card' ><img class='img_card' src='public/img/card-$card.jpg' alt='Mistery'></button>";
+                $html .= "<button disabled class='card col-1'  name ='card' value='$id_card' ><img class='img_card' src='public/img/card-$card.jpg' alt='Mistery'></button>";
             } else {
-                $html .= "<button $disabled class='card' type='submit' name ='card' value='$id_card' ><img class='img_card' src='public/img/card-mistery.jpg' alt='Mistery'></button>";
+                $html .= "<button $disabled class='card col-1' type='submit' name ='card' value='$id_card' ><img class='img_card' src='public/img/card-mistery.jpg' alt='Mistery'></button>";
             }
         }
 
@@ -221,13 +221,13 @@ class Game
      */
     public function displayMenu()
     {
-        $html = '<form class="border" method="POST" action="index.php?view=game">';
+        $html = '<form class="row justify-content-center" method="POST" action="index.php?view=game">';
         if ($this->gameState == 'init') {
             for ($pairs = 3; $pairs <= 12; $pairs++) {
-                $html .= "<input class='btn btn-primary m-1' type='submit' name='new' value='{$pairs}xpairs to find'>";
+                $html .= "<input class=' btn btn-primary m-1 w-50' type='submit' name='new' value='{$pairs}xpairs to find'>";
             }
         } else {
-            $html .= "<input class='btn btn-danger m-1' type='submit' name='reset' value='Reset'>";
+            $html .= "<input class=' btn btn-danger m-1 w-50' type='submit' name='reset' value='Reset'>";
         }
         $html .= '</form>';
         return $html;
