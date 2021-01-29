@@ -13,6 +13,8 @@ class Game
     public $revealedCards = [];
     public $looseLastShot = false;
     public $history = [];
+    public $msg = 'New game, choose your level';
+
 
     public function __construct()
     {
@@ -45,7 +47,9 @@ class Game
     {
         $this->reset();
         $this->deal($pairs);
+        $this->shot = 2 * $pairs + 1;
         $this->gameState = 'running';
+        $this->msg = $this->shot . ' shots available';
     }
 
     /**
@@ -53,7 +57,7 @@ class Game
      */
     public function deal($pairs)
     {
-        $cards = 'ABCDEFGHIJKL';
+        $cards = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $cardGame = [];
         for ($j = 0; $j <= 1; $j++) {
             for ($i = 0; $i <= $pairs - 1; $i++) {
@@ -76,6 +80,13 @@ class Game
      */
     public function play($card)
     {
+        $this->shot--;
+        if ($this->shot > 0) {
+            $this->msg = $this->shot . ' shots still available';
+        } else {
+            $this->msg = 'No more shots available, if you make a mistake, you\'re finish';
+        }
+
         if ($this->looseLastShot) {
             $card2hide = $this->history[count($this->history) - 1];
             $this->hideCard($card2hide);
@@ -92,9 +103,15 @@ class Game
             $this->returnedCard = $card;
         } else {
             if ($this->arePairs($this->returnedCard, $card)) {
-                $this->isWinner();
+                if ($this->isWinner()) {
+                    $this->msg = 'You\'re the best, you winn';
+                    $this->gameState = 'end';
+                }
             } else {
-                $this->isLooser();
+                if ($this->isLooser()) {
+                    $this->msg = 'Looser, no more shots..';
+                    $this->gameState = 'end';
+                }
                 $this->looseLastShot = TRUE;
             }
             $this->returnedCard = '';
@@ -134,6 +151,11 @@ class Game
      */
     public function isWinner()
     {
+        if (count($this->revealedCards) == count($this->cardGame)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     /**
@@ -141,6 +163,11 @@ class Game
      */
     public function isLooser()
     {
+        if ($this->shot <= 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     /**
@@ -154,6 +181,8 @@ class Game
         $this->revealedCards = [];
         $this->looseLastShot = false;
         $this->history = [];
+        $this->shot = 0;
+        $this->msg = 'New game, choose your level';
     }
 
     /**
@@ -161,22 +190,25 @@ class Game
      */
     public function displayBoard()
     {
-        if ($this->gameState != 'running') {
-            return;
+        $html = '';
+
+        if ($this->msg != '') {
+            $html .= "<p>{$this->msg}</p>";
         }
-        $html = '<form class="border" method="POST" action="index.php?view=game">';
+        if ($this->gameState == 'init') {
+            return $html;
+        }
+
+        $disabled = $this->gameState == 'end' ? 'disabled' : '';
+        $html .= '<form class="border" method="POST" action="index.php?view=game">';
 
         for ($i = 0; $i < count($this->cardGame); $i++) {
             $card = $this->cardGame[$i];
             $id_card = $i . '-' . $card;
             if (in_array($id_card, $this->revealedCards)) {
-                $html .= "<button disabled class='card'  name ='card' value='$id_card' >
-                <p>$card</p>
-                </button>";
+                $html .= "<button disabled class='card'  name ='card' value='$id_card' ><img class='img_card' src='public/img/card-$card.jpg' alt='Mistery'></button>";
             } else {
-                $html .= "<button class='card' type='submit' name ='card' value='$id_card' >
-                ?
-                </button>";
+                $html .= "<button $disabled class='card' type='submit' name ='card' value='$id_card' ><img class='img_card' src='public/img/card-mistery.jpg' alt='Mistery'></button>";
             }
         }
 
@@ -191,7 +223,6 @@ class Game
     {
         $html = '<form class="border" method="POST" action="index.php?view=game">';
         if ($this->gameState == 'init') {
-            $html .= 'New game, choose your level: <br/>';
             for ($pairs = 3; $pairs <= 12; $pairs++) {
                 $html .= "<input class='btn btn-primary m-1' type='submit' name='new' value='{$pairs}xpairs to find'>";
             }
