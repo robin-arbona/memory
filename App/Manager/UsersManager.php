@@ -39,67 +39,17 @@ class UsersManager extends Manager
     }
 
     /**
-     * Return array with login / point / shot from one user
+     * Return array with login / point / shot from all user DES
      * @return array
      */
 
-    public function getScore($id)
+    public function getScore() :array
     {
         
-        $query = $this->db->query("SELECT users.login,sum(points) AS total_points,sum(shot) AS total_shot FROM levels JOIN scores ON scores.id_levels=levels.id JOIN users ON users.id=scores.id_user WHERE id_user = $id")->fetch(\PDO::FETCH_ASSOC);
+        $query = $this->db->query("SELECT users.login,sum(points) AS points,sum(shot) AS shot FROM levels JOIN scores ON scores.id_levels=levels.id JOIN users ON users.id=scores.id_user GROUP BY login ORDER BY points DESC  ")->fetchAll(\PDO::FETCH_ASSOC);
         
-        
-        if($query['login'] == NULL)
-        {
-            return FALSE;
-        }
-        else
-        {
-            return $query;
-
-        }
-        
-
-        
+        return $query;
         
     }
-
-    /**
-     * Return last number of id in DB
-     * @return int 
-     */
-    public function getSumId() :int
-    {
-        $query = $this->db->query("SELECT id FROM users ORDER BY id DESC LIMIT 1");
-        $data = $query->fetch();
-        $data = (int)$data['id'];
-        return $data;
-    }
-
-    /**
-     * Fais la liste de tout les scores
-     */
-    public function listAllScore()
-    {
-        $wall = [];
-        $users = $this->getSumId();
-        for($i=1; $i<$users; $i++)
-        {
-            if($this->getScore($i) != FALSE)
-            {
-                array_push($wall,$this->getScore($i));
-            }
-            
-            
-            
-         
-        }
-        return $wall;
-        
-        
-        
-
-    }
-
 
 }
