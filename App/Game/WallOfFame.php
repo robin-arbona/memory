@@ -8,38 +8,19 @@ class WallOfFame
 {
 
     /**
-     * list all scores from player
-     */
-    public function countScores(array $array)
-    {
-        $scores = [];
-        foreach($array as $key => $value)
-        {
-            echo '<pre>';
-            var_dump($value);
-            echo '</pre>';
-            $scores = implode($value);
-
-        }
-        
-        
-        var_dump($scores);
-        
-
-    }
-
-
-    /**
      * Affiche un tableau avec les 10 meilleur players
      */
     public function displayWall(array $array)
     {
-        $html = "<table><tr>";
+        $html = "<table><tr><th>Login</th><th>Point</th><th>Shot</th></tr><tr>";
+        
         foreach($array as $key)
         {
-            $html .= "<th>$key</th></tr>";
+            $html .= "<td>".$key['login']."</td><td>".$key['points']."</td><td>".$key['shot']."</td></tr>";
+            
+            
         }
-        
+       
         $html .= '</table>';
         return $html;
         
