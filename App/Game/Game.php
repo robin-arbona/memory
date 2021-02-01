@@ -111,7 +111,7 @@ class Game
                     $score = new ScoresManager;
                     
                     $score->add($level->getLevel($this->cardGame),$_SESSION['id']);
-                    $this->msg = 'You\'re the best, you winn';
+                    $this->msg = 'You\'re the best, you win';
                     $this->gameState = 'end';
                 }
             } else {

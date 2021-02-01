@@ -2,7 +2,7 @@
 
 ?>
 <div class="container">
-    <h1> Test Menu </h1>
+    <h1>Menu</h1>
     <section class="row justify-content-center">
         <div class="col-11 col-sm-10 col-md-8 col-lg-6 m-5">
             <a href="index.php?view=game" class="w-100 m-1 btn btn-lg btn-primary">New game</a>

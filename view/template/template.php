@@ -37,7 +37,7 @@ if (isset($_POST['disconnect'])) {
                         </li>
                         <?php }?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php?view=signup">Sig Up</a>
+                            <a class="nav-link active" aria-current="page" href="index.php?view=signup">Sign Up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.php?view=login">Login</a>
