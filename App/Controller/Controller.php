@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Game\Game;
+use App\Game\WallOfFame;
 use App\Manager\UsersManager;
 use Core\Manager;
 
@@ -51,11 +52,16 @@ class Controller extends Manager
             $game = $_SESSION['game'];
         }
         $game->handleUserInput($userInput);
+        $_SESSION['game'] = $game;
         $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }
 
     public function wall_of_fame()
     {
+        $wall = new WallOfFame();
+        $scores = new UsersManager();
+        $content = $this->getView(__FUNCTION__, ['wall' => $wall, 'scores' => $scores]);
+        return $content;
     }
 }

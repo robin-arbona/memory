@@ -1,0 +1,21 @@
+.card{
+    display: inline-flex;
+    margin: 0.4rem;    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+}
+
+.img_card{
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+    width: 6rem;
+    height: 12rem;
+}
+
+.card:hover{
+    transform: translateY(-0.4rem);
+    transition-duration: 500ms;
+}
