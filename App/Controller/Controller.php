@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Game\Game;
 use App\Game\WallOfFame;
 use App\Manager\UsersManager;
+use App\Manager\ScoresManager;
 use Core\Manager;
 
 class Controller extends Manager
@@ -53,6 +54,7 @@ class Controller extends Manager
         }
         $game->handleUserInput($userInput);
         $_SESSION['game'] = $game;
+        
         $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }
