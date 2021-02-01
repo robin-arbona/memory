@@ -48,10 +48,10 @@ class Controller extends Manager
         if (!isset($_SESSION['game'])) {
             $game = new Game();
         } else {
-            $game = $_SESSION['game'];
+            $game = unserialize($_SESSION['game']);
         }
         $game->handleUserInput($userInput);
-        $_SESSION['game'] = $game;
+        $_SESSION['game'] = serialize($game);
         $content = $this->getView(__FUNCTION__, ['game' => $game]);
         return $content;
     }
