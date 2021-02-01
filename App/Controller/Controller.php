@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Game\Game;
 use App\Game\WallOfFame;
 use App\Manager\UsersManager;
+use App\Manager\ScoresManager;
 use Core\Manager;
 
 class Controller extends Manager
