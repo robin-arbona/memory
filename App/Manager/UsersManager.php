@@ -47,7 +47,7 @@ class UsersManager extends Manager
     public function getScore() :array
     {
         
-        $query = $this->db->query("SELECT users.login,sum(points) AS points,sum(shot) AS shot FROM levels JOIN scores ON scores.id_levels=levels.id JOIN users ON users.id=scores.id_user GROUP BY login ORDER BY points DESC  ")->fetchAll(\PDO::FETCH_ASSOC);
+        $query = $this->db->query("SELECT users.login,sum(points) AS points,sum(shot) AS shot FROM levels JOIN scores ON scores.id_levels=levels.id JOIN users ON users.id=scores.id_user GROUP BY login ORDER BY points DESC LIMIT 10 ")->fetchAll(\PDO::FETCH_ASSOC);
         
         return $query;
         

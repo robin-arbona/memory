@@ -12,11 +12,12 @@ class WallOfFame
      */
     public function displayWall(array $array)
     {
-        $html = "<table><tr><th>Login</th><th>Point</th><th>Shot</th></tr><tr>";
-        
+        $html = "<table class='table table-striped table-dark'><tr><th scope='col'>Ranking</th><th scope='col'>Login</th><th scope='col'>Point</th><th scope='col'>Shot</th></tr><tr>";
+        $a = 0;
         foreach($array as $key)
         {
-            $html .= "<td>".$key['login']."</td><td>".$key['points']."</td><td>".$key['shot']."</td></tr>";
+            $a++;
+            $html .= "<th scope='row'>$a</th><td>".$key['login']."</td><td>".$key['points']."</td><td>".$key['shot']."</td></tr>";
             
             
         }
