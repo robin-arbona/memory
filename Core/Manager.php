@@ -8,8 +8,8 @@ class Manager
 {
     protected $host = 'localhost';
     protected $dbname = 'memory';
-    protected $username = 'phpmyadmin';
-    protected $password ='lecam';
+    protected $username = 'root';
+    protected $password ='';
     protected $db;
     protected $table;
 
