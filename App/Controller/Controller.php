@@ -16,6 +16,7 @@ class Controller extends Manager
         $new_user = new UsersManager();
         if (isset($_POST['submit'])) {
             $new_user->add(htmlspecialchars($user_form['login']), password_hash($user_form['password'], PASSWORD_DEFAULT));
+            header('Location: index.php?view=login');
         }
     }
 
@@ -33,7 +34,6 @@ class Controller extends Manager
         $user = new UsersManager();
         if ($user->verify_user_login($user_form['login']) == true) {
             if ($user->verify_user_password($user_form['login'], $user_form['password']) == true) {
-                var_dump($_SESSION);
                 $_SESSION['login'] = $user_form['login'];
                 header('Location: index.php?view=game');
             }
