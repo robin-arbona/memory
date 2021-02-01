@@ -3,6 +3,9 @@
 
 namespace App\Game;
 
+use App\Manager\ScoresManager;
+use App\Manager\LevelsManager;
+
 
 class Game
 {
@@ -104,6 +107,10 @@ class Game
         } else {
             if ($this->arePairs($this->returnedCard, $card)) {
                 if ($this->isWinner()) {
+                    $level = new LevelsManager;
+                    $score = new ScoresManager;
+                    
+                    $score->add($level->getLevel($this->cardGame),$_SESSION['id']);
                     $this->msg = 'You\'re the best, you winn';
                     $this->gameState = 'end';
                 }

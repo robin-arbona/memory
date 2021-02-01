@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Game\Game;
 use App\Game\WallOfFame;
 use App\Manager\UsersManager;
+use App\Manager\ScoresManager;
 use Core\Manager;
 
 class Controller extends Manager
@@ -46,10 +47,14 @@ class Controller extends Manager
 
     public function game($userInput)
     {
-        if (!isset($_SESSION['game'])) {
-            $game = new Game();
+        if (isset($_SESSION['id'])) {
+            if (!isset($_SESSION['game'])) {
+                $game = new Game();
+            } else {
+                $game = unserialize($_SESSION['game']);
+            }
         } else {
-            $game = unserialize($_SESSION['game']);
+            header('Location: index.php?view=login');
         }
         $game->handleUserInput($userInput);
         $_SESSION['game'] = serialize($game);
