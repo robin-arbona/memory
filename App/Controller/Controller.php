@@ -46,15 +46,19 @@ class Controller extends Manager
 
     public function game($userInput)
     {
-        if (!isset($_SESSION['game'])) {
-            $game = new Game();
-        } else {
-            $game = $_SESSION['game'];
+        if(isset($_SESSION['id'])) {
+            if (!isset($_SESSION['game'])) {
+                $game = new Game();
+            } else {
+                $game = $_SESSION['game'];
+            }
+        }else{
+            header('Location: index.php?view=login');
         }
-        $game->handleUserInput($userInput);
-        $_SESSION['game'] = $game;
-        $content = $this->getView(__FUNCTION__, ['game' => $game]);
-        return $content;
+            $game->handleUserInput($userInput);
+            $_SESSION['game'] = $game;
+            $content = $this->getView(__FUNCTION__, ['game' => $game]);
+            return $content;
     }
 
     public function wall_of_fame()

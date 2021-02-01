@@ -29,9 +29,11 @@ if (isset($_POST['disconnect'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <?php if(isset($_SESSION['login'])){?>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.php?view=game">Game</a>
                         </li>
+                        <?php }?>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.php?view=signup">Sig Up</a>
                         </li>
