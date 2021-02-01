@@ -20,7 +20,7 @@ if (isset($_GET['view'])) {
         $controller->signup($_POST);
         $content = $controller->getView($view);
     } elseif ($view == 'wall_of_fame') {
-        $content = $controller->getView($view);
+        $content = $controller->wall_of_fame();
     } else {
         $content = $controller->getView('404');
     }

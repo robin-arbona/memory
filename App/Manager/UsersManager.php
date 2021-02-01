@@ -38,4 +38,18 @@ class UsersManager extends Manager
         }
     }
 
+    /**
+     * Return array with login / point / shot from all user DES
+     * @return array
+     */
+
+    public function getScore() :array
+    {
+        
+        $query = $this->db->query("SELECT users.login,sum(points) AS points,sum(shot) AS shot FROM levels JOIN scores ON scores.id_levels=levels.id JOIN users ON users.id=scores.id_user GROUP BY login ORDER BY points DESC  ")->fetchAll(\PDO::FETCH_ASSOC);
+        
+        return $query;
+        
+    }
+
 }
